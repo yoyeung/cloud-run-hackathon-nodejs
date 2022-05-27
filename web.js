@@ -41,12 +41,12 @@ app.post('/', function (req, res) {
         res.send(moves[Math.floor(Math.random() * moves.length)])
       }
         
-      if (last <= 2){
+      if (last <= 3){
         last += 1
         res.send('F')
       }
       last += 1
-      if (last >=3){
+      if (last >=4){
         isShot = false 
         last = 0
       }
