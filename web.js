@@ -21,10 +21,8 @@ app.post('/', function (req, res) {
   players.forEach(player => {
       const possibleX = me.x - player.x
       const possibleY = me.y - player.y
-      if (Math.abs(possibleX) < Math.abs(closeToMe[0])) {
+      if (Math.abs(possibleX) < Math.abs(closeToMe[0])|| Math.abs(possibleY) < Math.abs(closeToMe[1])) {
         closeToMe[0] = possibleX
-      }
-      if (Math.abs(possibleY) < Math.abs(closeToMe[1])) {
         closeToMe[1] = possibleY
       }
   })
