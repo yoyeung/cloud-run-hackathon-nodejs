@@ -15,7 +15,7 @@ var isShot = false
 var last = 0
 
 app.post('/', function (req, res) {
-    const moves = ['R', 'L','R', 'R','R', 'L','L', 'L','R', 'L'];
+    const moves = ['R', 'L','R', 'F','R', 'F','L', 'L','R', 'F'];
   console.log(JSON.stringify(req.body));
   let closeToMe = [100,100]
   let score = 100
