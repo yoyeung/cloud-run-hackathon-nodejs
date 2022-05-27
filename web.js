@@ -28,7 +28,7 @@ app.post('/', function (req, res) {
         closeToMe[1] = possibleY
       }
   })
-  
+  console.log('result', shotOrGo(me, closeToMe), closeToMe, me)
   res.send(shotOrGo(me, closeToMe));
 });
 
