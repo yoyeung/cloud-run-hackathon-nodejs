@@ -23,8 +23,8 @@ app.post('/', function (req, res) {
   delete req.body.arena.state[URL]
   const players = Object.values(req.body.arena.state)
   players.forEach(player => {
-      const possibleX = me.x - player.x
-      const possibleY = me.y - player.y
+      const possibleX =  player.x  - me.x
+      const possibleY = player.y - me.y
       if ((Math.abs(possibleX) + Math.abs(possibleY)) < score) {
         closeToMe[0] = possibleX
         closeToMe[1] = possibleY
