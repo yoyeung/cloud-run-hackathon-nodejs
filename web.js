@@ -13,6 +13,7 @@ app.get('/', function (req, res) {
 });
 var isShot = true
 var last = 0
+var stack = []
 
 app.post('/', function (req, res) {
     const moves = ['R', 'L','R', 'F','R', 'F','L', 'L','R', 'F'];
@@ -52,6 +53,11 @@ app.post('/', function (req, res) {
       
   }
   console.log('result', shotOrGo(me, closeToMe), closeToMe, me)
+  stack.push(shotOrGo(me, closeToMe))
+  if (stack.length > 20) {
+    stack = []
+    res.send(moves[Math.floor(Math.random() * moves.length)])
+  }
   res.send(shotOrGo(me, closeToMe));
 });
 
