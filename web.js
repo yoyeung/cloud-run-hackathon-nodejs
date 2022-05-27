@@ -104,7 +104,7 @@ function shotOrGo(me,closeToMe) {
         }
     }
 
-    return moves2[Math.floor(Math.random() * moves.length)]
+    return moves2[Math.floor(Math.random() * moves2.length)]
     
 }
 
