@@ -35,39 +35,45 @@ app.post('/', function (req, res) {
 function shotOrGo(me,closeToMe) {
     if (closeToMe[0] > closeToMe[1]) {
         // move to close one like Y
-        if (closeToMe[1] === 1) {
-            if (me.direction === 'W') {
+        if (closeToMe[0] === 1) { //1
+            if (me.direction === 'W' && Math.abs(closeToMe[1]) <= 3) {
                 return 'T'
-            } else if(me.direction ==='E') {
+            } else if(me.direction ==='S') {
                 return 'R'
-            }
-            return 'L'
-        } else {
-            if (me.direction === 'N') {
-                return 'T'
-            } else if(me.direction ==='E') {
+            } else if (me.direction ==='N' || me.direction ==='E') {
                 return 'L'
             }
-            return 'R'
+        } else { //2
+            if (me.direction === 'E' && Math.abs(closeToMe[1]) <= 3) {
+                return 'T'
+            } else if(me.direction ==='S') {
+                return 'R'
+            } else if (me.direction ==='N' || me.direction ==='W') {
+                return 'L'
+            }
         }
         
     } else {
-        if (closeToMe[0] === 1) {
-            if (me.direction === 'W') {
+        if (closeToMe[1] === 1) { //3
+            if (me.direction === 'S' && Math.abs(closeToMe[0]) <= 3) {
                 return 'T'
             } else if(me.direction ==='E') {
                 return 'R'
+            } else if (me.direction ==='N' || me.direction ==='W') {
+                return 'L'
             }
-            return 'L'
-        } else {
-            if (me.direction === 'N') {
+        } else { //4
+            if (me.direction === 'N' && Math.abs(closeToMe[0]) <= 3) {
                 return 'T'
             } else if(me.direction ==='E') {
                 return 'L'
+            } else if (me.direction ==='S' || me.direction ==='W') {
+                return 'R'
             }
-            return 'R'
         }
     }
+
+    return 'F'
     
 }
 
