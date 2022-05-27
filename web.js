@@ -15,7 +15,7 @@ var isShot = false
 var last = 0
 
 app.post('/', function (req, res) {
-    const moves = ['F', 'R', 'L', 'T'];
+    const moves = ['R', 'L'];
   console.log(JSON.stringify(req.body));
   let closeToMe = [100,100]
   let score = 100
@@ -37,7 +37,7 @@ app.post('/', function (req, res) {
   if (isShot && last <=2) {
       if (last === 0){
         last += 1
-        res.send('R')
+        res.send(moves[Math.floor(Math.random() * moves.length)])
       }
         
       if (last <= 2){
@@ -58,7 +58,7 @@ app.post('/', function (req, res) {
 function shotOrGo(me,closeToMe) {
     if (closeToMe[0] > closeToMe[1]) {
         // move to close one like Y
-        if (closeToMe[0] >= 1) { //1
+        if (closeToMe[0] >= 0) { //1
             if (me.direction === 'W' && Math.abs(closeToMe[0]) < 3  &&  Math.abs(closeToMe[1]) === 0) {
                 return 'T'
             } else if(me.direction ==='S') {
@@ -77,7 +77,7 @@ function shotOrGo(me,closeToMe) {
         }
         
     } else {
-        if (closeToMe[1] >= 1) { //3
+        if (closeToMe[1] >= 0) { //3
             if (me.direction === 'N' && Math.abs(closeToMe[1]) < 3 &&  Math.abs(closeToMe[0]) === 0) {
                 return 'T'
             } else if(me.direction ==='E') {
