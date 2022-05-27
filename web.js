@@ -41,7 +41,7 @@ app.post('/', function (req, res) {
         res.send(moves[Math.floor(Math.random() * moves.length)])
       }
         
-      if (last <= 4){
+      if (last <= 3){
         last += 1
         res.send('F')
       }
