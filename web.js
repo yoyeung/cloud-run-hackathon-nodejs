@@ -61,7 +61,7 @@ app.post('/', function (req, res) {
   res.send(shotOrGo(me, closeToMe));
 });
 
-const moves2 = ['R', 'L','F', 'F','R','F','F', 'L','F'];
+const moves2 = ['R','F', 'F','F','F', 'L','F'];
 
 function shotOrGo(me,closeToMe) {
     if (closeToMe[0] > closeToMe[1]) {
