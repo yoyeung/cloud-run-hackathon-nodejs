@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
   res.send('Let the battle begin!');
 });
-var isShot = false
+var isShot = true
 var last = 0
 
 app.post('/', function (req, res) {
