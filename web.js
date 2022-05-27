@@ -10,7 +10,7 @@ app.get('/', function (req, res) {
 
 app.post('/', function (req, res) {
   console.log(req.body);
-  const moves = ['F', 'T', 'L', 'R'];
+  const moves = ['F'];
   res.send(moves[Math.floor(Math.random() * moves.length)]);
 });
 
