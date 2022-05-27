@@ -4,7 +4,7 @@ const URL = "https://cloud-run-hackathon-nodejs-zzovtf46pq-uc.a.run.app"
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const { match } = require('assert');
+// const { match } = require('assert');
 
 app.use(bodyParser.json());
 
@@ -21,10 +21,10 @@ app.post('/', function (req, res) {
   players.forEach(player => {
       const possibleX = me.x - player.x
       const possibleY = me.y - player.y
-      if (match.abs(possibleX) < match.abs(closeToMe[0])) {
+      if (Math.abs(possibleX) < Math.abs(closeToMe[0])) {
         closeToMe[0] = possibleX
       }
-      if (match.abs(possibleY) < match.abs(closeToMe[1])) {
+      if (Math.abs(possibleY) < Math.abs(closeToMe[1])) {
         closeToMe[1] = possibleY
       }
   })
@@ -36,7 +36,7 @@ function shotOrGo(me,closeToMe) {
     if (closeToMe[0] > closeToMe[1]) {
         // move to close one like Y
         if (closeToMe[0] === 1) { //1
-            if (me.direction === 'W' && Math.abs(closeToMe[1]) <= 3) {
+            if (me.direction === 'W' && Math.abs(closeToMe[1]) < 3) {
                 return 'T'
             } else if(me.direction ==='S') {
                 return 'R'
@@ -44,7 +44,7 @@ function shotOrGo(me,closeToMe) {
                 return 'L'
             }
         } else { //2
-            if (me.direction === 'E' && Math.abs(closeToMe[1]) <= 3) {
+            if (me.direction === 'E' && Math.abs(closeToMe[1]) < 3) {
                 return 'T'
             } else if(me.direction ==='S') {
                 return 'R'
@@ -55,7 +55,7 @@ function shotOrGo(me,closeToMe) {
         
     } else {
         if (closeToMe[1] === 1) { //3
-            if (me.direction === 'S' && Math.abs(closeToMe[0]) <= 3) {
+            if (me.direction === 'S' && Math.abs(closeToMe[0]) < 3) {
                 return 'T'
             } else if(me.direction ==='E') {
                 return 'R'
@@ -63,7 +63,7 @@ function shotOrGo(me,closeToMe) {
                 return 'L'
             }
         } else { //4
-            if (me.direction === 'N' && Math.abs(closeToMe[0]) <= 3) {
+            if (me.direction === 'N' && Math.abs(closeToMe[0]) < 3) {
                 return 'T'
             } else if(me.direction ==='E') {
                 return 'L'
