@@ -76,19 +76,19 @@ function shotOrGo(me,closeToMe) {
         
     } else {
         if (closeToMe[1] >= 1) { //3
-            if (me.direction === 'S' && Math.abs(closeToMe[1]) < 3 &&  Math.abs(closeToMe[0]) === 0) {
+            if (me.direction === 'N' && Math.abs(closeToMe[1]) < 3 &&  Math.abs(closeToMe[0]) === 0) {
                 return 'T'
             } else if(me.direction ==='E') {
                 return 'R'
-            } else if (me.direction ==='N' || me.direction ==='W') {
+            } else if (me.direction ==='S' || me.direction ==='W') {
                 return 'L'
             }
         } else { //4
-            if (me.direction === 'N' && Math.abs(closeToMe[1]) < 3) {
+            if (me.direction === 'S' && Math.abs(closeToMe[1]) < 3) {
                 return 'T'
             } else if(me.direction ==='E') {
                 return 'L'
-            } else if (me.direction ==='S' || me.direction ==='W') {
+            } else if (me.direction ==='N' || me.direction ==='W') {
                 return 'R'
             }
         }
