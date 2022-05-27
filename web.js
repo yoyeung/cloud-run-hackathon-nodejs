@@ -76,7 +76,7 @@ function shotOrGo(me,closeToMe) {
         }
         
     } else {
-        if (closeToMe[1] > 0) { //3
+        if (closeToMe[1] < 0) { //3
             if (me.direction === 'N' && Math.abs(closeToMe[1]) < 3 &&  Math.abs(closeToMe[0]) === 0) {
                 return 'T'
             } else if(me.direction ==='E') {
