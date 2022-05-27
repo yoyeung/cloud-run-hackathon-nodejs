@@ -33,15 +33,21 @@ app.post('/', function (req, res) {
     isShot = true
   }
   if (isShot && last <=2) {
-      if (last === 0)
+      if (last === 0){
+        last += 1
         res.send('R')
-      if (last <= 2)
+      }
+        
+      if (last <= 2){
+        last += 1
         res.send('F')
+      }
+      last += 1
       if (last >=3){
         isShot = false 
         last = 0
       }
-      last += 1
+      
   }
   console.log('result', shotOrGo(me, closeToMe), closeToMe, me)
   res.send(shotOrGo(me, closeToMe));
