@@ -11,6 +11,8 @@ app.use(bodyParser.json());
 app.get('/', function (req, res) {
   res.send('Let the battle begin!');
 });
+var isShot = false
+var last = 0
 
 app.post('/', function (req, res) {
     const moves = ['F', 'R', 'L', 'T'];
@@ -27,6 +29,20 @@ app.post('/', function (req, res) {
         closeToMe[1] = possibleY
       }
   })
+  if (me.wasHit && isShot === false) {
+    isShot = true
+  }
+  if (isShot && last <=2) {
+      if (last === 0)
+        res.send('R')
+      if (last <= 2)
+        res.send('F')
+      if (last >=3){
+        isShot = false 
+        last = 0
+      }
+      last += 1
+  }
   console.log('result', shotOrGo(me, closeToMe), closeToMe, me)
   res.send(shotOrGo(me, closeToMe));
 });
