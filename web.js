@@ -17,6 +17,7 @@ app.post('/', function (req, res) {
   console.log(JSON.stringify(req.body));
   let closeToMe = [100,100]
   const  me = req.body.arena.state[URL]
+  delete req.body.arena.state[URL]
   const players = Object.values(req.body.arena.state)
   players.forEach(player => {
       const possibleX = me.x - player.x
