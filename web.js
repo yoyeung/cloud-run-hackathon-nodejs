@@ -15,7 +15,7 @@ var isShot = false
 var last = 0
 
 app.post('/', function (req, res) {
-    const moves = ['R', 'L','R', 'L','R', 'L','R', 'L','R', 'L'];
+    const moves = ['R', 'L','R', 'R','R', 'L','L', 'L','R', 'L'];
   console.log(JSON.stringify(req.body));
   let closeToMe = [100,100]
   let score = 100
@@ -23,8 +23,8 @@ app.post('/', function (req, res) {
   delete req.body.arena.state[URL]
   const players = Object.values(req.body.arena.state)
   players.forEach(player => {
-      const possibleX =  player.x  - me.x
-      const possibleY = player.y - me.y
+      const possibleX = me.x - player.x
+      const possibleY = me.y - player.y
       if ((Math.abs(possibleX) + Math.abs(possibleY)) < score) {
         closeToMe[0] = possibleX
         closeToMe[1] = possibleY
@@ -57,7 +57,7 @@ app.post('/', function (req, res) {
 
 function shotOrGo(me,closeToMe) {
     if (closeToMe[0] > closeToMe[1]) {
-        if (closeToMe[0] < 0) { //1
+        if (closeToMe[0] > 0) { //1
             if (me.direction === 'W' && Math.abs(closeToMe[0]) < 3  &&  Math.abs(closeToMe[1]) === 0) {
                 return 'T'
             } else if(me.direction ==='S') {
@@ -76,7 +76,7 @@ function shotOrGo(me,closeToMe) {
         }
         
     } else {
-        if (closeToMe[1] < 0) { //3
+        if (closeToMe[1] > 0) { //3
             if (me.direction === 'N' && Math.abs(closeToMe[1]) < 3 &&  Math.abs(closeToMe[0]) === 0) {
                 return 'T'
             } else if(me.direction ==='E') {
