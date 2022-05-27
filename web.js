@@ -61,9 +61,10 @@ app.post('/', function (req, res) {
   res.send(shotOrGo(me, closeToMe));
 });
 
-const moves2 = ['R','F', 'F','F','F', 'L','F'];
+
 
 function shotOrGo(me,closeToMe) {
+    const moves2 = ['R','F', 'F','F','F', 'L','F'];
     if (closeToMe[0] > closeToMe[1]) {
         if (closeToMe[0] > 0) { //1
             if (me.direction === 'W' && Math.abs(closeToMe[0]) < 3  &&  Math.abs(closeToMe[1]) === 0) {
@@ -103,7 +104,7 @@ function shotOrGo(me,closeToMe) {
         }
     }
 
-    return moves[Math.floor(Math.random() * moves.length)]
+    return moves2[Math.floor(Math.random() * moves.length)]
     
 }
 
