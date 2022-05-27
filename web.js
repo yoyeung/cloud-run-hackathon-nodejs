@@ -85,7 +85,7 @@ function shotOrGo(me,closeToMe) {
                 return 'R'
             }
         } else { //4
-            if (me.direction === 'S' && Math.abs(closeToMe[1]) < 3  &&  Math.abs(closeToMe[1]) === 0) {
+            if (me.direction === 'S' && Math.abs(closeToMe[1]) < 3  &&  Math.abs(closeToMe[0]) === 0) {
                 return 'T'
             } else if(me.direction ==='E') {
                 return 'R'
