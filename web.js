@@ -16,7 +16,7 @@ var last = 0
 var stack = []
 
 app.post('/', function (req, res) {
-    const moves = ['R', 'L','R', 'F','R', 'F','L', 'L','R', 'F'];
+    const moves = ['R', 'L','R', 'R','R', 'R','L', 'L','R', 'L'];
   console.log(JSON.stringify(req.body));
   let closeToMe = [100,100]
   let score = 100
