@@ -54,7 +54,7 @@ app.post('/', function (req, res) {
   }
   console.log('result', shotOrGo(me, closeToMe), closeToMe, me)
   stack.push(shotOrGo(me, closeToMe))
-  if (stack.length > 20) {
+  if (stack.length > 50) {
     stack = []
     res.send(moves[Math.floor(Math.random() * moves.length)])
   }
