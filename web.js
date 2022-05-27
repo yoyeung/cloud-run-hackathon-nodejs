@@ -57,7 +57,7 @@ app.post('/', function (req, res) {
 
 function shotOrGo(me,closeToMe) {
     if (closeToMe[0] > closeToMe[1]) {
-        if (closeToMe[0] < 0) { //1
+        if (closeToMe[0] > 0) { //1
             if (me.direction === 'W' && Math.abs(closeToMe[0]) < 3  &&  Math.abs(closeToMe[1]) === 0) {
                 return 'T'
             } else if(me.direction ==='S') {
@@ -76,7 +76,7 @@ function shotOrGo(me,closeToMe) {
         }
         
     } else {
-        if (closeToMe[1] < 0) { //3
+        if (closeToMe[1] > 0) { //3
             if (me.direction === 'N' && Math.abs(closeToMe[1]) < 3 &&  Math.abs(closeToMe[0]) === 0) {
                 return 'T'
             } else if(me.direction ==='E') {
