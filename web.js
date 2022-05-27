@@ -18,15 +18,17 @@ app.post('/', function (req, res) {
     const moves = ['F', 'R', 'L', 'T'];
   console.log(JSON.stringify(req.body));
   let closeToMe = [100,100]
+  let score = 100
   const  me = req.body.arena.state[URL]
   delete req.body.arena.state[URL]
   const players = Object.values(req.body.arena.state)
   players.forEach(player => {
       const possibleX = me.x - player.x
       const possibleY = me.y - player.y
-      if (Math.abs(possibleX) < Math.abs(closeToMe[0])|| Math.abs(possibleY) < Math.abs(closeToMe[1])) {
+      if ((Math.abs(possibleX) + Math.abs(possibleY)) < score) {
         closeToMe[0] = possibleX
         closeToMe[1] = possibleY
+        score = (Math.abs(possibleX) + Math.abs(possibleY))
       }
   })
   if (me.wasHit && isShot === false) {
