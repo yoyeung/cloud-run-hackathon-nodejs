@@ -1,5 +1,5 @@
 
-const URL = "https://cloud-run-hackathon-nodejs-zzovtf46pq-uc.a.run.app"
+const URL = "https://cloud-run-hackathon-nodejs-gk4xih6jmq-uc.a.run.app"
 
 const express = require('express');
 const app = express();
