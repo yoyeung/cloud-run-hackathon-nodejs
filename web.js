@@ -69,8 +69,8 @@ app.post('/', function (req, res) {
   console.log(JSON.stringify(req.body.arena.state));
   let closeToMe = [100,100]
   let score = 100
-  const  me = req.body.arena.state[URL]
-  delete req.body.arena.state[URL]
+  const  me = req.body.arena.state[URL] || req.body.arena.state[`${URL}/`]
+  delete req.body.arena.state[URL] || req.body.arena.state[`${URL}/`]
   const players = Object.values(req.body.arena.state)
   console.log(JSON.stringify(me))
   const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.position< b.position)
