@@ -154,14 +154,14 @@ function actionToTake(me, players, res) {
       return a.position - b.position || a.distinct - b.distinct
     })
     for (let i = 0 ; i < currentPlayer.length; i++) {
-        if ( currentPlayer[i].distinct >= 3 ) {
+        if ( currentPlayer[i].distinct >= 2 ) {
           if (currentPlayer[i].on) {
             return res.send(currentPlayer[i].on.toUpperCase())
           }
           if (currentPlayer[i].position == 0)
             return res.send('F')
           else
-          return res.send('R')
+            return res.send('R')
         }
     }
     // let i = 0
