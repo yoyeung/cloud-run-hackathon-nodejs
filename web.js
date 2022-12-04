@@ -152,7 +152,7 @@ function actionToTake(me, players, res) {
     isBorder(me, res)
     const currentPlayer = players.sort((a,b) => {
       return a.position - b.position || a.distinct - b.distinct
-    }
+    })
     for (let i = 0 ; i < currentPlayer.length; i++) {
         if ( currentPlayer[i].distinct >= 3 ) {
           if (currentPlayer[i].on) {
