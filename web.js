@@ -142,7 +142,7 @@ function actionToTake(me, players, res) {
   const moves = ['R', 'F','F', 'L','F', 'R','L', 'F','F', 'L'];
   if (me.wasHit) {
     hitCount++
-    isBorder()
+    isBorder(me)
     let i = 0
     if (players[i].position === 0) {
       if (players[i+1].on == 'l' && players[i+1].distinct > 2) {
@@ -157,7 +157,7 @@ function actionToTake(me, players, res) {
     }
   } else {
     hitCount = 0
-    isBorder()
+    isBorder(me)
     const targetPlayer = players.sort((a,b) => {
       return a.noOfStep - b.noOfStep
     })[0]
