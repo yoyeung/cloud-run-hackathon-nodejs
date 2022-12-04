@@ -156,18 +156,20 @@ function actionToTake(me, players, res) {
     // })
     let direction = [0, 'l', 'r', 2]
     for (let i = 0 ; i < currentPlayer.length; i++) {
-        if ( currentPlayer[i].distinct >= 2 ) {
-          if (currentPlayer[i].on) {
-            return res.send(currentPlayer[i].on.toUpperCase())
-          }
-          if (currentPlayer[i].position == 0)
-            return res.send('F')
-          else
-            return res.send('R')
-        } else {
+        // if ( currentPlayer[i].distinct >= 2 ) {
+        //   if (currentPlayer[i].on) {
+        //     return res.send(currentPlayer[i].on.toUpperCase())
+        //   }
+        //   if (currentPlayer[i].position == 0)
+        //     return res.send('F')
+        //   else{
+        //     return res.send('R')
+        //   }
+            
+        // } else {
           direction = direction.filter(item =>  item != (currentPlayer[i]?.on ?? currentPlayer[i].position))
           console.log('direction', direction, currentPlayer[i])
-        }
+        // }
     }
     if (direction[0] === 0) {
       return res.send('F')
