@@ -1,6 +1,3 @@
-
-const URL = "https://cloud-run-hackathon-nodejs-gk4xih6jmq-uc.a.run.app"
-
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
@@ -17,7 +14,8 @@ var stack = []
 
 app.post('/', function (req, res) {
     const moves = ['R', 'L','R', 'R','R', 'R','L', 'L','R', 'L'];
-  console.log(JSON.stringify(req.hostname));
+  
+  const URL = `https://${req.hostname}`
   console.log(JSON.stringify(req.body));
   let closeToMe = [100,100]
   let score = 100
