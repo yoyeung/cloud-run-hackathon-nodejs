@@ -147,7 +147,7 @@ function thePlayerDirection(me) {
        player.distinct = Math.abs(player.y - me.y)
       }
     }
-    player.noOfStep = player.position + Math(player.distinct - maxDistinct, 0)
+    player.noOfStep = player.position + Math.abs(player.distinct - maxDistinct, 0)
     return player;
   }
 }
