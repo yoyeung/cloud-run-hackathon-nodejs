@@ -64,8 +64,9 @@ var stack = []
 app.post('/', function (req, res) {
     const moves = ['R', 'L','R', 'R','F', 'R','L', 'F','R', 'L'];
   
-  const URL = `${req.protocol}://${req.hostname}`
-  console.log(JSON.stringify(req.body));
+  const URL = `${req.protocol}://${req.hostname}/`
+  console.log('URL', URL)
+  console.log(JSON.stringify(req.body.arena.state));
   let closeToMe = [100,100]
   let score = 100
   const  me = req.body.arena.state[URL]
