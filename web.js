@@ -176,6 +176,7 @@ function actionToTake(me, players, res) {
       return res.send('R')
     }
     if (direction[0] === 'l' || direction[0] === 'r' ) {
+      console.log("it's training", direction[0].toUpperCase())
       return res.send(direction[0].toUpperCase())
     }
     // let i = 0
