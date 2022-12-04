@@ -166,7 +166,7 @@ function actionToTake(me, players, res) {
     }
   } else {
     const targetPlayer = players.sort((a,b) => {
-      return a.noOfStep < b.noOfStep
+      return a.noOfStep - b.noOfStep
     })[0]
     console.log('targetPlayer', targetPlayer)
     if (!targetPlayer){
