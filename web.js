@@ -71,6 +71,7 @@ app.post('/', function (req, res) {
   const  me = req.body.arena.state[URL]
   delete req.body.arena.state[URL]
   const players = Object.values(req.body.arena.state)
+  console.log(JSON.stringify(me))
   console.log(JSON.stringify(players.filter(filterForSameRow(me))))
   res.send(moves[Math.floor(Math.random() * moves.length)])
   
