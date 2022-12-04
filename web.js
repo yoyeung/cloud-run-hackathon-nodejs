@@ -109,33 +109,41 @@ function thePlayerDirection(me) {
 function isBorder(me, res) {
   if (me.direction =='N') {
     if (me.y - 1 < 0) {
+      console.log('border move R')
       return res.send("R")
     }
     if (me.y + 1 > dims[1] - 1) {
+      console.log('border move L')
       return res.send("L")
     }
   }
   if (me.direction =='E') {
     if (me.x + 1 > dims[0] - 1) {
+      console.log('border move L')
       return res.send("L")
     }
     if (me.x - 1 < 0) {
+      console.log('border move R')
       return res.send("R")
     } 
   }
   if (me.direction =='W') {
     if (me.x - 1 < 0) {
+      console.log('border move L')
       return res.send("L")
     }
     if (me.x + 1 > dims[0] - 1) {
+      console.log('border move R')
       return res.send("R")
     }
   }
   if (me.direction =='S') {
     if (me.y - 1 > dims[1] - 1) {
+      console.log('border move R')
         return res.send("R")
     }
     if (me.y - 1 < 0) {
+      console.log('border move L')
       return res.send("L")
     }
   }
@@ -164,18 +172,21 @@ function actionToTake(me, players, res) {
             
         // } else {
           direction = direction.filter(item =>  item != (currentPlayer[i]?.on ?? currentPlayer[i].position))
-          console.log('direction', direction, currentPlayer[i])
+          console.log('direction', direction)
         // }
     }
-    if (direction[0] === 0) {
+    const finalDirection = direction[Math.trunc(Math.random() * direction.length)]
+    if (finalDirection === 0) {
+      console.log('hit and move F')
       return res.send('F')
     }
-    if (direction[0] === 2) {
+    if (finalDirection === 2) {
+      console.log('hit and move R')
       return res.send('R')
     }
-    if (direction[0] === 'l' || direction[0] === 'r' ) {
-      console.log("it's training", direction[0].toUpperCase())
-      return res.send(direction[0].toUpperCase())
+    if (finalDirection === 'l' || finalDirection === 'r' ) {
+      console.log("hit and move", finalDirection.toUpperCase())
+      return res.send(finalDirection.toUpperCase())
     }
     // let i = 0
     // if (players[i].position === 0) {
@@ -198,18 +209,23 @@ function actionToTake(me, players, res) {
     // })[0]
     console.log('targetPlayer', targetPlayer)
     if (!targetPlayer){
+      console('normal T')
       return res.send('T') 
     }
     if (targetPlayer.position === 0) {
       if (targetPlayer.distinct <= 3) {
+        console('normal T')
         return res.send('T')
       }
+      console('normal F')
       return res.send('F')
     }
     if (targetPlayer.on ='l') {
+      console('normal L')
       return res.send('L')
     } 
     if (targetPlayer.on ='r') {
+      console('normal R')
       return res.send('R')
     }
     
