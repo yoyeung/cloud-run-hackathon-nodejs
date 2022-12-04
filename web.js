@@ -160,7 +160,8 @@ function actionToTake(me, players) {
         return res.send('L')
       } else {
         return res.send('R')
-    }else {
+      }
+    } else {
       return res.send('F')
     }
   } else {
