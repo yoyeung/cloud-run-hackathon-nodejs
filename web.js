@@ -205,7 +205,7 @@ function actionToTake(me, players, res) {
       return res.send('T') 
     }
     if (targetPlayer.position === 0) {
-      if (targetPlayer.distinct < 3) {
+      if (targetPlayer.distinct <= 3) {
         return res.send('T')
       }
       return res.send('F')
