@@ -13,16 +13,16 @@ var last = 0
 var stack = []
 const maxDistinct = 2
 var hitCount = 0
-
+let dims = []
 
 app.post('/', function (req, res) {
-    const moves = ['R', 'L','R', 'R','F', 'R','L', 'F','R', 'L'];
+  
   
   const URL = `https://${req.hostname}`
   console.log('URL', URL)
   console.log(JSON.stringify(req.body));
-  let closeToMe = [100,100]
-  let score = 100
+  dims = req.body.arena.dims;
+
   const  me = req.body.arena.state[URL] || req.body.arena.state[`${URL}/`]
   delete req.body.arena.state[URL]
   delete req.body.arena.state[`${URL}/`]
@@ -99,9 +99,50 @@ function thePlayerDirection(me) {
     return player;
   }
 }
+function isBorder() {
+  if (me.direction =='N') {
+    if (me.y - 1 < 0) {
+      if (me.x - 1 < 0) {
+        return res.send("R")
+      } else {
+        return res.send("L")
+      }
+    }
+  }
+  if (me.direction =='E') {
+    if (me.y - 1 < 0) {
+      if (me.x + 1 > dims[1] - 1) {
+        return res.send("L")
+      } else {
+        return res.send("R")
+      }
+    }
+  }
+  if (me.direction =='W') {
+    if (me.x - 1 < 0) {
+      if (me.y + 1 > dims[1] - 1) {
+        return res.send("R")
+      } else {
+        return res.send("L")
+      }
+    }
+  }
+  if (me.direction =='S') {
+    if (me.y - 1 > dims[1] - 1) {
+      if (me.x - 1 < 0) {
+        return res.send("R")
+      } else {
+        return res.send("L")
+      }
+    }
+  }
+}
 
 function actionToTake(me, players, res) {
+  const moves = ['R', 'F','F', 'L','F', 'R','L', 'F','F', 'L'];
   if (me.wasHit) {
+    hitCount++
+    isBorder()
     let i = 0
     if (players[i].position === 0) {
       if (players[i+1].on == 'l' && players[i+1].distinct > 2) {
@@ -112,10 +153,11 @@ function actionToTake(me, players, res) {
         return res.send('R')
       }
     } else {
-      console.log('Hit with F')
-      return res.send('F')
+      return res.send(moves[Math.trunc(Math.random() * moves.length)])
     }
   } else {
+    hitCount = 0
+    isBorder()
     const targetPlayer = players.sort((a,b) => {
       return a.noOfStep - b.noOfStep
     })[0]
