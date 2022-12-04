@@ -72,10 +72,88 @@ app.post('/', function (req, res) {
   delete req.body.arena.state[URL]
   const players = Object.values(req.body.arena.state)
   console.log(JSON.stringify(me))
-  console.log(JSON.stringify(players.filter(filterForSameRow(me))))
+  const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.position< b.position)
+  console.log('filteredPlayers', filteredPlayers)
   res.send(moves[Math.floor(Math.random() * moves.length)])
   
 });
+
+// try to find out is the player on my left/right/behind
+fucntion thePlayerDirection(me) {
+  return (player) => {
+   if (me.direction === 'N') {
+      if(player.y < me.y) {
+        player.position = 0
+      } else {
+        player.position = 2
+      }
+     player.position = 1
+      
+    } else if (me.direction === 'E') {
+      if(player.x > me.x) {
+        player.position =0
+      } else {
+        player.position = 2
+      }
+     player.position = 1
+      
+    } else if (me.direction === 'W') {
+      if(player.x <  me.x) {
+        player.position =0
+      } else {
+        player.position = 2
+      }
+     player.position = 1
+    } else {
+      if(player.y > me.y) {
+        player.position =0
+      } else {
+        player.position = 2
+      }
+     player.position = 1
+    }
+  }
+}
+function checkCloseToMe(me){
+ return (player) => {
+    if (me.direction === 'N') {
+      if(player.y < me.y) {
+        if (me.y - player.y < 3) {
+          return res.send('T')
+        } else {
+          return res.send('F')
+        }
+      }
+      
+    } else if (me.direction === 'E') {
+      if(player.x > me.x) {
+        if (player.x - me.x < 3) {
+          return res.send('T')
+        } else {
+          return res.send('F')
+        }
+      }
+      
+    } else if (me.direction === 'W') {
+      if(player.x < me.x) {
+        if (me.x - player.x < 3) {
+          return res.send('T')
+        } else {
+          return res.send('F')
+        }
+      }
+    } else {
+      if(player.y > me.y) {
+        if (player.y - me.y < 3) {
+          return res.send('T')
+        } else {
+          return res.send('F')
+        }
+      }
+    }
+    
+ }
+}
 
 function filterForSameRow(me){ 
   return (player) => {
