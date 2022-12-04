@@ -156,13 +156,20 @@ function actionToTake(me, players, res) {
   if (me.wasHit) {
     let i = 0
     if (players[i].position === 0) {
+      if (players[i].distinct < 2) {
+        console.log('Hit with T')
+        return res.send('T')
+      } else {
+        console.log('Hit with F move to avoid hit and for next round hit')
+        return res.send('F')
+      }
+    } else {
       if (players[i+1].on == 'l' && players[i+1].distinct > 2) {
         return res.send('L')
       } else {
-        return res.send('R')
+        const moves = ['R', 'F'];
+        return res.send(moves[Math.floor(Math.random() * moves.length)])
       }
-    } else {
-      return res.send('F')
     }
   } else {
     const targetPlayer = players.sort((a,b) => {
