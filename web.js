@@ -29,7 +29,7 @@ app.post('/', function (req, res) {
   delete req.body.arena.state[`${URL}/`]
   const players = Object.values(req.body.arena.state)
   console.log(JSON.stringify(me))
-  const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.distinct< b.distinct)
+  const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.distinct- b.distinct)
   console.log('filteredPlayers', JSON.stringify(filteredPlayers))
   if (filteredPlayers.length === 0) {
     idea++
@@ -150,9 +150,10 @@ function actionToTake(me, players, res) {
   if (me.wasHit) {
     hitCount++
     isBorder(me, res)
-    const currentPlayer = players.sort((a,b) => {
-      return a.position - b.position || a.distinct - b.distinct
-    })
+    const currentPlayer = players
+    // .sort((a,b) => {
+    //   return a.position - b.position || a.distinct - b.distinct
+    // })
     for (let i = 0 ; i < currentPlayer.length; i++) {
         if ( currentPlayer[i].distinct >= 2 ) {
           if (currentPlayer[i].on) {
