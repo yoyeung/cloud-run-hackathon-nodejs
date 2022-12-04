@@ -80,7 +80,7 @@ app.post('/', function (req, res) {
   if (filteredPlayers.length === 0) {
     return res.send('T')
   }
-  actionToTake(me, filteredPlayers)
+  actionToTake(me, filteredPlayers, res)
   
   
   
@@ -152,7 +152,7 @@ function thePlayerDirection(me) {
   }
 }
 
-function actionToTake(me, players) {
+function actionToTake(me, players, res) {
   if (me.wasHit) {
     let i = 0
     if (players[i].position === 0) {
