@@ -23,6 +23,7 @@ app.post('/', function (req, res) {
   const  me = req.body.arena.state[URL]
   delete req.body.arena.state[URL]
   const players = Object.values(req.body.arena.state)
+  console.log(players)
   players.forEach(player => {
       const possibleX = me.x - player.x
       const possibleY = me.y - player.y
