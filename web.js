@@ -93,58 +93,58 @@ app.post('/', function (req, res) {
 function thePlayerDirection(me) {
   return (player) => {
    if (me.direction === 'N') {
-     
      if (player.y === me.y){
-        if(player.x < me.x) {
-          player.position =0
-        } else {
-          player.position = 2
-        }
-        player.distinct = Math.abs(player.x - me.x)
-      } else {
-       player.position = 1 
-       player.on = (player.y > me.y) ? 'r' : 'l'
-       player.distinct = Math.abs(player.y - me.y)
-      }
-  
-    } else if (me.direction === 'E') {
-      if (player.x === me.x){
-        if(player.y > me.y) {
-          player.position =0
-        } else {
-          player.position = 2
-        }
-        player.distinct = Math.abs(player.y - me.y)
-      } else {
-        player.position = 1
+        player.position = 1 
         player.on = (player.x > me.x) ? 'r' : 'l'
         player.distinct = Math.abs(player.x - me.x)
-      }
-    } else if (me.direction === 'W') {
-      if (player.x === me.x){
+      } else {
         if(player.y < me.y) {
           player.position =0
         } else {
           player.position = 2
         }
         player.distinct = Math.abs(player.y - me.y)
-      } else {
-        player.position = 1
-        player.on = (player.x > me.x) ? 'l' : 'r'
-        player.distinct = Math.abs(player.x - me.x)
       }
-    } else {
-      if (player.y === me.y){
+  
+    } else if (me.direction === 'E') {
+      if (player.x === me.x){
+        player.position = 1
+        player.on = (player.y > me.y) ? 'r' : 'l'
+        player.distinct = Math.abs(player.y - me.y)
+      } else {
         if(player.x > me.x) {
           player.position =0
         } else {
           player.position = 2
         }
         player.distinct = Math.abs(player.x - me.x)
+      }
+    } else if (me.direction === 'W') {
+      if (player.x === me.x){
+        player.position = 1
+        player.on = (player.y > me.y) ? 'l' : 'r'
+        player.distinct = Math.abs(player.y - me.y)
+        
       } else {
-       player.position = 1 
-       player.on = (player.y > me.y) ? 'l' : 'r'
-       player.distinct = Math.abs(player.y - me.y)
+        if(player.x < me.x) {
+          player.position =0
+        } else {
+          player.position = 2
+        }
+        player.distinct = Math.abs(player.x - me.x)
+      }
+    } else {
+      if (player.y === me.y){
+        player.position = 1 
+         player.on = (player.x > me.x) ? 'l' : 'r'
+         player.distinct = Math.abs(player.x - me.x)
+      } else {
+        if(player.y > me.y) {
+          player.position =0
+        } else {
+          player.position = 2
+        }
+        player.distinct = Math.abs(player.y - me.y)
       }
     }
     player.noOfStep = player.position + Math.abs(player.distinct - maxDistinct, 0)
