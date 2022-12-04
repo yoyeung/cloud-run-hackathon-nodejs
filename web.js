@@ -116,6 +116,10 @@ function isBorder(me, res) {
       console.log('border move L')
       return res.send("L")
     }
+    if (me.x - 1 < 0) {
+      console.log('border move R')
+      return res.send("R")
+      
   }
   if (me.direction =='E') {
     if (me.x + 1 > dims[0] - 1) {
@@ -126,6 +130,9 @@ function isBorder(me, res) {
       console.log('border move R')
       return res.send("R")
     } 
+    if (me.y - 1 < 0) {
+      return res.send("L")
+    }
   }
   if (me.direction =='W') {
     if (me.x - 1 < 0) {
@@ -136,6 +143,9 @@ function isBorder(me, res) {
       console.log('border move R')
       return res.send("R")
     }
+    if (me.y - 1 < 0) {
+      return res.send("L")
+    }
   }
   if (me.direction =='S') {
     if (me.y - 1 > dims[1] - 1) {
@@ -145,6 +155,9 @@ function isBorder(me, res) {
     if (me.y - 1 < 0) {
       console.log('border move L')
       return res.send("L")
+    }
+    if (me.x +1 > dims[0] -1) {
+      return res.send("R")
     }
   }
 }
