@@ -14,6 +14,7 @@ var stack = []
 const maxDistinct = 2
 var hitCount = 0
 let dims = []
+let idea = 0
 
 app.post('/', function (req, res) {
   
@@ -31,8 +32,14 @@ app.post('/', function (req, res) {
   const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.distinct< b.distinct)
   console.log('filteredPlayers', JSON.stringify(filteredPlayers))
   if (filteredPlayers.length === 0) {
+    idea++
+    if (idea > 5) {
+      idea = 0
+      return res.send('F')
+    }
     return res.send('R')
   }
+  idea = 0
   actionToTake(me, filteredPlayers, res)
   
 });
@@ -139,10 +146,24 @@ function isBorder(me, res) {
 }
 
 function actionToTake(me, players, res) {
-  const moves = ['R', 'F','F', 'L','F', 'R','L', 'F','F', 'L'];
+  const moves = ['R', 'F','F', 'L','F', 'R','F', 'F','F', 'L'];
   if (me.wasHit) {
     hitCount++
     isBorder(me, res)
+    const currentPlayer = players.sort((a,b) => {
+      return a.position - b.position || a.distinct - b.distinct
+    }
+    for (let i = 0 ; i < currentPlayer.length; i++) {
+        if ( currentPlayer[i].distinct >= 3 ) {
+          if (currentPlayer[i].on) {
+            return res.send(currentPlayer[i].on.toUpperCase())
+          }
+          if (currentPlayer[i].position == 0)
+            return res.send('F')
+          else
+          return res.send('R')
+        }
+    }
     // let i = 0
     // if (players[i].position === 0) {
     //   if (players[i+1]?.on == 'l' && players[i+1].distinct > 2) {
