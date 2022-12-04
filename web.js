@@ -143,18 +143,18 @@ function actionToTake(me, players, res) {
   if (me.wasHit) {
     hitCount++
     isBorder(me, res)
-    let i = 0
-    if (players[i].position === 0) {
-      if (players[i+1]?.on == 'l' && players[i+1].distinct > 2) {
-        console.log('Hit with L')
-        return res.send('L')
-      } else {
-        console.log('Hit with R')
-        return res.send('R')
-      }
-    } else {
+    // let i = 0
+    // if (players[i].position === 0) {
+    //   if (players[i+1]?.on == 'l' && players[i+1].distinct > 2) {
+    //     console.log('Hit with L')
+    //     return res.send('L')
+    //   } else {
+    //     console.log('Hit with R')
+    //     return res.send('R')
+    //   }
+    // } else {
       return res.send(moves[Math.trunc(Math.random() * moves.length)])
-    }
+    // }
   } else {
     hitCount = 0
     isBorder(me, res)
