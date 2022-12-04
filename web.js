@@ -99,7 +99,7 @@ function thePlayerDirection(me) {
     return player;
   }
 }
-function isBorder() {
+function isBorder(me) {
   if (me.direction =='N') {
     if (me.y - 1 < 0) {
       if (me.x - 1 < 0) {
