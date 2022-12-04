@@ -113,6 +113,7 @@ function thePlayerDirection(me) {
       }
      player.position = 1
     }
+    return player;
   }
 }
 function checkCloseToMe(me){
