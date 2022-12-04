@@ -84,7 +84,7 @@ app.post('/', function (req, res) {
   
   
   
-//   res.send(moves[Math.floor(Math.random() * moves.length)])
+  res.send(moves[Math.floor(Math.random() * moves.length)])
   
 });
 
