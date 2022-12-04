@@ -165,7 +165,7 @@ function actionToTake(me, players, res) {
           else
             return res.send('R')
         } else {
-          direction = direction.filter(item => ! (item == currentPlayer[i]?.on ?? currentPlayer[i].position))
+          direction = direction.filter(item =>  item != currentPlayer[i]?.on ?? currentPlayer[i].position)
           console.log('direction', direction, currentPlayer[i])
         }
     }
