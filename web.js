@@ -79,7 +79,7 @@ app.post('/', function (req, res) {
 });
 
 // try to find out is the player on my left/right/behind
-fucntion thePlayerDirection(me) {
+function thePlayerDirection(me) {
   return (player) => {
    if (me.direction === 'N') {
       if(player.y < me.y) {
