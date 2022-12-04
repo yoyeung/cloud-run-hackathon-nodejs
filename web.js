@@ -20,7 +20,7 @@ app.post('/', function (req, res) {
   
   const URL = `https://${req.hostname}`
   console.log('URL', URL)
-  console.log(JSON.stringify(req.body.arena.state));
+  console.log(JSON.stringify(req.body));
   let closeToMe = [100,100]
   let score = 100
   const  me = req.body.arena.state[URL] || req.body.arena.state[`${URL}/`]
