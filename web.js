@@ -70,7 +70,8 @@ app.post('/', function (req, res) {
   let closeToMe = [100,100]
   let score = 100
   const  me = req.body.arena.state[URL] || req.body.arena.state[`${URL}/`]
-  delete req.body.arena.state[URL] || req.body.arena.state[`${URL}/`]
+  delete req.body.arena.state[URL]
+  delete req.body.arena.state[`${URL}/`]
   const players = Object.values(req.body.arena.state)
   console.log(JSON.stringify(me))
   const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.position< b.position)
@@ -91,49 +92,21 @@ app.post('/', function (req, res) {
 function thePlayerDirection(me) {
   return (player) => {
    if (me.direction === 'N') {
-     if (player.x === me.x){
-        if(player.y < me.y) {
-          player.position = 0
+     
+     if (player.y === me.y){
+        if(player.x < me.x) {
+          player.position =0
         } else {
           player.position = 2
         }
+        player.distinct = Math.abs(player.x - me.x)
+      } else {
+       player.position = 1 
+       player.on = (player.y > me.y) ? 'r' : 'l'
        player.distinct = Math.abs(player.y - me.y)
-     } else {
-       // for left or right position
-        player.position = 1
-        player.on = (player.x > me.x) ? 'r' : 'l'
-        player.distinct = Math.abs(player.x - me.x)
-     }
-
-      
+      }
+  
     } else if (me.direction === 'E') {
-      if (player.y === me.y){
-        if(player.x > me.x) {
-          player.position =0
-        } else {
-          player.position = 2
-        }
-        player.distinct = Math.abs(player.x - me.x)
-      } else {
-        player.position = 1
-        player.on = (player.y > me.y) ? 'r' : 'l'
-        player.distinct = Math.abs(player.y - me.y)
-      }
-    } else if (me.direction === 'W') {
-      if (player.y === me.y){
-        if(player.x <  me.x) {
-          player.position =0
-        } else {
-          player.position = 2
-        }
-        player.distinct = Math.abs(player.x - me.x)
-      } else {
-        player.position = 1
-        player.on = (player.y > me.y) ? 'l' : 'r'
-        player.distinct = Math.abs(player.y - me.y)
-      }
-        
-    } else {
       if (player.x === me.x){
         if(player.y > me.y) {
           player.position =0
@@ -142,9 +115,35 @@ function thePlayerDirection(me) {
         }
         player.distinct = Math.abs(player.y - me.y)
       } else {
+        player.position = 1
+        player.on = (player.x > me.x) ? 'r' : 'l'
+        player.distinct = Math.abs(player.x - me.x)
+      }
+    } else if (me.direction === 'W') {
+      if (player.x === me.x){
+        if(player.y < me.y) {
+          player.position =0
+        } else {
+          player.position = 2
+        }
+        player.distinct = Math.abs(player.y - me.y)
+      } else {
+        player.position = 1
+        player.on = (player.x > me.x) ? 'l' : 'r'
+        player.distinct = Math.abs(player.x - me.x)
+      }
+    } else {
+      if (player.y === me.y){
+        if(player.x > me.x) {
+          player.position =0
+        } else {
+          player.position = 2
+        }
+        player.distinct = Math.abs(player.x - me.x)
+      } else {
        player.position = 1 
-       player.on = (player.x > me.x) ? 'l' : 'r'
-       player.distinct = Math.abs(player.x - me.x)
+       player.on = (player.y > me.y) ? 'l' : 'r'
+       player.distinct = Math.abs(player.y - me.y)
       }
     }
     return player;
