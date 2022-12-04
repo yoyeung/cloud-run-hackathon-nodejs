@@ -168,14 +168,9 @@ function actionToTake(me, players, res) {
     const targetPlayer = players.sort((a,b) => {
       return a.noOfStep < b.noOfStep
     })[0]
+    console.log('targetPlayer', targetPlayer)
     if (!targetPlayer){
       return res.send('T') 
-    }
-    if (targetPlayer.on ='l') {
-      return res.send('L')
-    } 
-    if (targetPlayer.on ='r') {
-      return res.send('R')
     }
     if (targetPlayer.position === 0) {
       if (targetPlayer.distinct < 3) {
@@ -183,6 +178,13 @@ function actionToTake(me, players, res) {
       }
       return res.send('F')
     }
+    if (targetPlayer.on ='l') {
+      return res.send('L')
+    } 
+    if (targetPlayer.on ='r') {
+      return res.send('R')
+    }
+    
   }
    return res.send('T')
 }
