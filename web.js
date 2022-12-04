@@ -31,7 +31,7 @@ app.post('/', function (req, res) {
   const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.distinct< b.distinct)
   console.log('filteredPlayers', JSON.stringify(filteredPlayers))
   if (filteredPlayers.length === 0) {
-    return res.send('T')
+    return res.send('R')
   }
   actionToTake(me, filteredPlayers, res)
   
