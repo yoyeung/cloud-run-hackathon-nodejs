@@ -11,6 +11,7 @@ app.get('/', function (req, res) {
 var isShot = true
 var last = 0
 var stack = []
+const maxDistinct = 2
 
 // app.post('/', function (req, res) {
 //     const moves = ['R', 'L','R', 'R','R', 'R','L', 'L','R', 'L'];
@@ -74,17 +75,17 @@ app.post('/', function (req, res) {
   delete req.body.arena.state[`${URL}/`]
   const players = Object.values(req.body.arena.state)
   console.log(JSON.stringify(me))
-  const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.position< b.position)
+  const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.distinct< b.distinct)
   console.log('filteredPlayers', JSON.stringify(filteredPlayers))
   if (filteredPlayers.length === 0) {
     return res.send('T')
   }
+  actionToTake(me, filteredPlayers)
   
   
   
   
-  
-  res.send(moves[Math.floor(Math.random() * moves.length)])
+//   res.send(moves[Math.floor(Math.random() * moves.length)])
   
 });
 
@@ -146,14 +147,43 @@ function thePlayerDirection(me) {
        player.distinct = Math.abs(player.y - me.y)
       }
     }
+    player.noOfStep = player.position + Math(player.distinct - maxDistinct, 0)
     return player;
   }
 }
 
-function actionToTake(me, player) {
+function actionToTake(me, players) {
   if (me.wasHit) {
-    
+    let i = 0
+    if (players[i].position === 0) {
+      if (players[i+1].on == 'l' && players[i+1].distinct > 2) {
+        return res.send('L')
+      } else {
+        return res.send('R')
+    }else {
+      return res.send('F')
+    }
+  } else {
+    const targetPlayer = players.sort((a,b) => {
+      return a.noOfStep < b.noOfStep
+    })[0]
+    if (!targetPlayer){
+      return res.send('T') 
+    }
+    if (targetPlayer.on ='l') {
+      return res.send('L')
+    } 
+    if (targetPlayer.on ='r') {
+      return res.send('R')
+    }
+    if (targetPlayer.position === 0) {
+      if (targetPlayer.distinct < 3) {
+        return res.send('T')
+      }
+      return res.send('F')
+    }
   }
+   return res.send('T')
 }
 // function checkCloseToMe(me){
 //  return (player) => {
