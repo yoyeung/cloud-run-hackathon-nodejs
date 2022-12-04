@@ -164,6 +164,7 @@ function actionToTake(me, players, res) {
           else
             return res.send('R')
         }
+        return res.send('R')
     }
     // let i = 0
     // if (players[i].position === 0) {
