@@ -12,55 +12,76 @@ var isShot = true
 var last = 0
 var stack = []
 
-app.post('/', function (req, res) {
-    const moves = ['R', 'L','R', 'R','R', 'R','L', 'L','R', 'L'];
+// app.post('/', function (req, res) {
+//     const moves = ['R', 'L','R', 'R','R', 'R','L', 'L','R', 'L'];
   
-  const URL = `https://${req.hostname}/`
+//   const URL = `${req.protocol}://${req.hostname}/`
+//   console.log(JSON.stringify(req.body));
+//   let closeToMe = [100,100]
+//   let score = 100
+//   const  me = req.body.arena.state[URL]
+//   delete req.body.arena.state[URL]
+//   const players = Object.values(req.body.arena.state)
+//   console.log(players)
+//   players.forEach(player => {
+//       const possibleX = me.x - player.x
+//       const possibleY = me.y - player.y
+//       if ((Math.abs(possibleX) + Math.abs(possibleY)) < score) {
+//         closeToMe[0] = possibleX
+//         closeToMe[1] = possibleY
+//         score = (Math.abs(possibleX) + Math.abs(possibleY))
+//       }
+//   })
+//   if (me.wasHit && isShot === false) {
+//     isShot = true
+//   }
+//   if (isShot && last <=2) {
+//       if (last === 0){
+//         last += 1
+//         res.send(moves[Math.floor(Math.random() * moves.length)])
+//       }
+        
+//       if (last <= 3){
+//         last += 1
+//         res.send('F')
+//       }
+//       last += 1
+//       if (last >=4){
+//         isShot = false 
+//         last = 0
+//       }
+      
+//   }
+//   console.log('result', shotOrGo(me, closeToMe), closeToMe, me)
+//   stack.push(shotOrGo(me, closeToMe))
+//   if (stack.length > 50) {
+//     stack = []
+//     res.send(moves[Math.floor(Math.random() * moves.length)])
+//   }
+//   res.send(shotOrGo(me, closeToMe));
+// });
+
+app.post('/', function (req, res) {
+    const moves = ['R', 'L','R', 'R','F', 'R','L', 'F','R', 'L'];
+  
+  const URL = `${req.protocol}://${req.hostname}/`
   console.log(JSON.stringify(req.body));
   let closeToMe = [100,100]
   let score = 100
   const  me = req.body.arena.state[URL]
   delete req.body.arena.state[URL]
   const players = Object.values(req.body.arena.state)
-  console.log(players)
-  players.forEach(player => {
-      const possibleX = me.x - player.x
-      const possibleY = me.y - player.y
-      if ((Math.abs(possibleX) + Math.abs(possibleY)) < score) {
-        closeToMe[0] = possibleX
-        closeToMe[1] = possibleY
-        score = (Math.abs(possibleX) + Math.abs(possibleY))
-      }
-  })
-  if (me.wasHit && isShot === false) {
-    isShot = true
-  }
-  if (isShot && last <=2) {
-      if (last === 0){
-        last += 1
-        res.send(moves[Math.floor(Math.random() * moves.length)])
-      }
-        
-      if (last <= 3){
-        last += 1
-        res.send('F')
-      }
-      last += 1
-      if (last >=4){
-        isShot = false 
-        last = 0
-      }
-      
-  }
-  console.log('result', shotOrGo(me, closeToMe), closeToMe, me)
-  stack.push(shotOrGo(me, closeToMe))
-  if (stack.length > 50) {
-    stack = []
-    res.send(moves[Math.floor(Math.random() * moves.length)])
-  }
-  res.send(shotOrGo(me, closeToMe));
+  console.log(JSON.stringify(players.filter(filterForSameRow(me))))
+  res.send(moves[Math.floor(Math.random() * moves.length)])
+  
 });
 
+function filterForSameRow(me) => (player) {
+  if (me.x === player.x || me.y === player.y){
+    return true
+  }
+  return false
+}
 
 
 function shotOrGo(me,closeToMe) {
