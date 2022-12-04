@@ -77,11 +77,13 @@ app.post('/', function (req, res) {
   
 });
 
-function filterForSameRow(me) => (player) {
-  if (me.x === player.x || me.y === player.y){
-    return true
+function filterForSameRow(me){ 
+  return (player) => {
+    if (me.x === player.x || me.y === player.y){
+      return true
+    }
+    return false
   }
-  return false
 }
 
 
