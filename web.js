@@ -74,8 +74,12 @@ app.post('/', function (req, res) {
   const players = Object.values(req.body.arena.state)
   console.log(JSON.stringify(me))
   const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.position< b.position)
-  console.log('filteredPlayers', filteredPlayers)
-  res.send(moves[Math.floor(Math.random() * moves.length)])
+  console.log('filteredPlayers', JSON.stringify(filteredPlayers))
+  if (filteredPlayers.length === 0) {
+    return res.send('T')
+  }
+  
+//   res.send(moves[Math.floor(Math.random() * moves.length)])
   
 });
 
@@ -116,46 +120,52 @@ function thePlayerDirection(me) {
     return player;
   }
 }
-function checkCloseToMe(me){
- return (player) => {
-    if (me.direction === 'N') {
-      if(player.y < me.y) {
-        if (me.y - player.y < 3) {
-          return res.send('T')
-        } else {
-          return res.send('F')
-        }
-      }
-      
-    } else if (me.direction === 'E') {
-      if(player.x > me.x) {
-        if (player.x - me.x < 3) {
-          return res.send('T')
-        } else {
-          return res.send('F')
-        }
-      }
-      
-    } else if (me.direction === 'W') {
-      if(player.x < me.x) {
-        if (me.x - player.x < 3) {
-          return res.send('T')
-        } else {
-          return res.send('F')
-        }
-      }
-    } else {
-      if(player.y > me.y) {
-        if (player.y - me.y < 3) {
-          return res.send('T')
-        } else {
-          return res.send('F')
-        }
-      }
-    }
+
+function actionToTake(me, player) {
+  if (me.wasHit) {
     
- }
+  }
 }
+// function checkCloseToMe(me){
+//  return (player) => {
+//     if (me.direction === 'N') {
+//       if(player.y < me.y) {
+//         if (me.y - player.y < 3) {
+//           return res.send('T')
+//         } else {
+//           return res.send('F')
+//         }
+//       }
+      
+//     } else if (me.direction === 'E') {
+//       if(player.x > me.x) {
+//         if (player.x - me.x < 3) {
+//           return res.send('T')
+//         } else {
+//           return res.send('F')
+//         }
+//       }
+      
+//     } else if (me.direction === 'W') {
+//       if(player.x < me.x) {
+//         if (me.x - player.x < 3) {
+//           return res.send('T')
+//         } else {
+//           return res.send('F')
+//         }
+//       }
+//     } else {
+//       if(player.y > me.y) {
+//         if (player.y - me.y < 3) {
+//           return res.send('T')
+//         } else {
+//           return res.send('F')
+//         }
+//       }
+//     }
+    
+//  }
+// }
 
 function filterForSameRow(me){ 
   return (player) => {
@@ -167,49 +177,49 @@ function filterForSameRow(me){
 }
 
 
-function shotOrGo(me,closeToMe) {
-    const moves2 = ['R','F', 'F','F','F', 'L','F'];
-    if (closeToMe[0] > closeToMe[1]) {
-        if (closeToMe[0] > 0) { //1
-            if (me.direction === 'W' && Math.abs(closeToMe[0]) < 3  &&  Math.abs(closeToMe[1]) === 0) {
-                return 'T'
-            } else if(me.direction ==='S') {
-                return 'R'
-            } else if (me.direction ==='N' || me.direction ==='E') {
-                return 'L'
-            }
-        } else { //2
-            if (me.direction === 'E' && Math.abs(closeToMe[0]) < 3  &&  Math.abs(closeToMe[1]) === 0) {
-                return 'T'
-            } else if(me.direction ==='S') {
-                return 'L'
-            } else if (me.direction ==='N' || me.direction ==='W') {
-                return 'R'
-            }
-        }
+// function shotOrGo(me,closeToMe) {
+//     const moves2 = ['R','F', 'F','F','F', 'L','F'];
+//     if (closeToMe[0] > closeToMe[1]) {
+//         if (closeToMe[0] > 0) { //1
+//             if (me.direction === 'W' && Math.abs(closeToMe[0]) < 3  &&  Math.abs(closeToMe[1]) === 0) {
+//                 return 'T'
+//             } else if(me.direction ==='S') {
+//                 return 'R'
+//             } else if (me.direction ==='N' || me.direction ==='E') {
+//                 return 'L'
+//             }
+//         } else { //2
+//             if (me.direction === 'E' && Math.abs(closeToMe[0]) < 3  &&  Math.abs(closeToMe[1]) === 0) {
+//                 return 'T'
+//             } else if(me.direction ==='S') {
+//                 return 'L'
+//             } else if (me.direction ==='N' || me.direction ==='W') {
+//                 return 'R'
+//             }
+//         }
         
-    } else {
-        if (closeToMe[1] > 0) { //3
-            if (me.direction === 'N' && Math.abs(closeToMe[1]) < 3 &&  Math.abs(closeToMe[0]) === 0) {
-                return 'T'
-            } else if(me.direction ==='E') {
-                return 'L'
-            } else if (me.direction ==='S' || me.direction ==='W') {
-                return 'R'
-            }
-        } else { //4
-            if (me.direction === 'S' && Math.abs(closeToMe[1]) < 3  &&  Math.abs(closeToMe[0]) === 0) {
-                return 'T'
-            } else if(me.direction ==='E') {
-                return 'R'
-            } else if (me.direction ==='N' || me.direction ==='W') {
-                return 'L'
-            }
-        }
-    }
+//     } else {
+//         if (closeToMe[1] > 0) { //3
+//             if (me.direction === 'N' && Math.abs(closeToMe[1]) < 3 &&  Math.abs(closeToMe[0]) === 0) {
+//                 return 'T'
+//             } else if(me.direction ==='E') {
+//                 return 'L'
+//             } else if (me.direction ==='S' || me.direction ==='W') {
+//                 return 'R'
+//             }
+//         } else { //4
+//             if (me.direction === 'S' && Math.abs(closeToMe[1]) < 3  &&  Math.abs(closeToMe[0]) === 0) {
+//                 return 'T'
+//             } else if(me.direction ==='E') {
+//                 return 'R'
+//             } else if (me.direction ==='N' || me.direction ==='W') {
+//                 return 'L'
+//             }
+//         }
+//     }
 
-    return moves2[Math.floor(Math.random() * moves2.length)]
+//     return moves2[Math.floor(Math.random() * moves2.length)]
     
-}
+// }
 
 app.listen(process.env.PORT || 8080);
