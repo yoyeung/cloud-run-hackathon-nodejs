@@ -15,7 +15,7 @@ var stack = []
 app.post('/', function (req, res) {
     const moves = ['R', 'L','R', 'R','R', 'R','L', 'L','R', 'L'];
   
-  const URL = `https://${req.hostname}`
+  const URL = `https://${req.hostname}/`
   console.log(JSON.stringify(req.body));
   let closeToMe = [100,100]
   let score = 100
