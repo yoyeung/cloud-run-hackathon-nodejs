@@ -157,11 +157,14 @@ function actionToTake(me, players, res) {
     let i = 0
     if (players[i].position === 0) {
       if (players[i+1].on == 'l' && players[i+1].distinct > 2) {
+        console.log('Hit with L')
         return res.send('L')
       } else {
+        console.log('Hit with R')
         return res.send('R')
       }
     } else {
+      console.log('Hit with F')
       return res.send('F')
     }
   } else {
