@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-// const { match } = require('assert');
 
 app.use(bodyParser.json());
 
@@ -119,7 +118,7 @@ function isBorder(me, res) {
     if (me.x - 1 < 0) {
       console.log('border move R')
       return res.send("R")
-      
+    }
   }
   if (me.direction =='E') {
     // if (me.x + 1 > dims[0] - 1) {
@@ -130,7 +129,8 @@ function isBorder(me, res) {
     //   console.log('border move R')
     //   return res.send("R")
     // } 
-    if (me.y - 1 < 0) {
+    if (me.y + 1 > dims[1] - 1) {
+        console.log('border move R')
       return res.send("R")
     }
   }
@@ -144,6 +144,7 @@ function isBorder(me, res) {
     //   return res.send("R")
     // }
     if (me.y - 1 < 0) {
+        console.log('border move R')
       return res.send("R")
     }
   }
@@ -157,6 +158,7 @@ function isBorder(me, res) {
     //   return res.send("L")
     // }
     if (me.x +1 > dims[0] -1) {
+        console.log('border move R')
       return res.send("R")
     }
   }
@@ -166,7 +168,10 @@ function actionToTake(me, players, res) {
   const moves = ['R', 'F','F', 'L','F', 'R','F', 'F','F', 'L'];
   if (me.wasHit) {
     hitCount++
-    isBorder(me, res)
+    if (isBorder(me, res)) {
+        return
+    }
+    let maxDistinctPlayer = { distinct: 0 }
     const currentPlayer = players
     // .sort((a,b) => {
     //   return a.position - b.position || a.distinct - b.distinct
@@ -184,11 +189,20 @@ function actionToTake(me, players, res) {
         //   }
             
         // } else {
-          direction = direction.filter(item =>  item != (currentPlayer[i]?.on ?? currentPlayer[i].position))
-          console.log('direction', direction)
+        if (maxDistinctPlayer.distinct < currentPlayer.distinct) {
+            maxDistinctPlayer = currentPlayer
+        }
+        direction = direction.filter(item =>  item != (currentPlayer[i]?.on ?? currentPlayer[i].position))
+        console.log('direction', direction)
         // }
     }
-    const finalDirection = direction[Math.trunc(Math.random() * direction.length)]
+    let finalDirection = 2
+    if (direction.length >= 2) {
+        finalDirection = direction[Math.trunc(Math.random() * direction.length)]
+    } else {
+        finalDirection = maxDistinctPlayer?.on?.toUpperCase() ?? maxDistinctPlayer.position
+    }
+    
     if (finalDirection === 0) {
       console.log('hit and move F')
       return res.send('F')
@@ -215,30 +229,33 @@ function actionToTake(me, players, res) {
     // }
   } else {
     hitCount = 0
-    isBorder(me, res)
+    
     const targetPlayer = players[0]
     // .sort((a,b) => {
     //   return a.noOfStep - b.noOfStep
     // })[0]
     console.log('targetPlayer', targetPlayer)
     if (!targetPlayer){
-      console('normal T')
+      console.log('normal T')
       return res.send('T') 
     }
     if (targetPlayer.position === 0) {
       if (targetPlayer.distinct <= 3) {
-        console('normal T')
+        console.log('normal T')
         return res.send('T')
       }
-      console('normal F')
+      if (isBorder(me, res)) {
+            return
+      }
+      console.log('normal F')
       return res.send('F')
     }
-    if (targetPlayer.on ='l') {
-      console('normal L')
+    if (targetPlayer.on =='l') {
+      console.log('normal L')
       return res.send('L')
     } 
-    if (targetPlayer.on ='r') {
-      console('normal R')
+    if (targetPlayer.on =='r') {
+      console.log('normal R')
       return res.send('R')
     }
     
