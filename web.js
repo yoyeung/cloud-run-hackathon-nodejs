@@ -31,7 +31,7 @@ app.post('/', function (req, res) {
   const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.distinct- b.distinct)
   console.log('filteredPlayers', JSON.stringify(filteredPlayers))
  
-  if ( actionToTake(me, filteredPlayers, res)) {
+  if (!actionToTake(me, filteredPlayers, res)) {
    idea++
     if (idea > 5) {
       idea = 0
@@ -167,7 +167,7 @@ function actionToTake(me, players, res) {
   if (me.wasHit) {
     hitCount++
     if (isBorder(me, res)) {
-        return true
+        return false
     }
     let maxDistinctPlayer = { distinct: 0 }
     const currentPlayer = players
@@ -235,11 +235,13 @@ function actionToTake(me, players, res) {
     console.log('targetPlayer', targetPlayer)
     if (!targetPlayer){
       console.log('normal T')
+      res.send('T') 
       return res.send('T') 
     }
     if (targetPlayer.position === 0) {
       if (targetPlayer.distinct <= 3) {
         console.log('normal T')
+        res.send('T') 
         return res.send('T')
       }
       if (isBorder(me, res)) {
@@ -258,6 +260,7 @@ function actionToTake(me, players, res) {
     }
     
   }
+    res.send('T') 
    return res.send('T')
 }
 
