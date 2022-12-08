@@ -235,13 +235,11 @@ function actionToTake(me, players, res) {
     console.log('targetPlayer', targetPlayer)
     if (!targetPlayer){
       console.log('normal T')
-      res.send('T') 
       return res.send('T') 
     }
     if (targetPlayer.position === 0) {
       if (targetPlayer.distinct <= 3) {
         console.log('normal T')
-        res.send('T') 
         return res.send('T')
       }
       if (isBorder(me, res)) {
@@ -260,7 +258,6 @@ function actionToTake(me, players, res) {
     }
     
   }
-    res.send('T') 
    return res.send('T')
 }
 
