@@ -30,17 +30,15 @@ app.post('/', function (req, res) {
   console.log(JSON.stringify(me))
   const filteredPlayers = players.filter(filterForSameRow(me)).map(thePlayerDirection(me)).sort((a,b) => a.distinct- b.distinct)
   console.log('filteredPlayers', JSON.stringify(filteredPlayers))
-  if (filteredPlayers.length === 0) {
-    idea++
+ 
+  if ( actionToTake(me, filteredPlayers, res)) {
+   idea++
     if (idea > 5) {
       idea = 0
       return res.send('F')
     }
     return res.send('R')
   }
-  idea = 0
-  actionToTake(me, filteredPlayers, res)
-  
 });
 
 // try to find out is the player on my left/right/behind
@@ -169,7 +167,7 @@ function actionToTake(me, players, res) {
   if (me.wasHit) {
     hitCount++
     if (isBorder(me, res)) {
-        return
+        return true
     }
     let maxDistinctPlayer = { distinct: 0 }
     const currentPlayer = players
