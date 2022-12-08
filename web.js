@@ -258,7 +258,7 @@ function actionToTake(me, players, res) {
     }
     
   }
-   return res.send('T')
+//    return res.send('T')
 }
 
 
