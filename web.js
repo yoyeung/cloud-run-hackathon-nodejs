@@ -14,6 +14,7 @@ const maxDistinct = 2
 var hitCount = 0
 let dims = []
 let idea = 0
+let lastTargetPlayer = null
 
 app.post('/', function (req, res) {
   
@@ -234,26 +235,35 @@ function actionToTake(me, players, res) {
     // })[0]
     console.log('targetPlayer', targetPlayer)
     if (!targetPlayer){
+      console.log('normal R')
+      lastTargetPlayer = null
+      return res.send('R') 
+    }
+    if (lastTargetPlayer && lastTargetPlayer.x == targetPlayer.x &&lastTargetPlayer.y == targetPlayer.y) {
       console.log('normal T')
-      return res.send('T') 
+      return res.send('T')
     }
     if (targetPlayer.position === 0) {
       if (targetPlayer.distinct <= 3) {
         console.log('normal T')
+        lastTargetPlayer = targetPlayer
         return res.send('T')
       }
       if (isBorder(me, res)) {
             return
       }
       console.log('normal F')
+      lastTargetPlayer = null
       return res.send('F')
     }
     if (targetPlayer.on =='l') {
       console.log('normal L')
+      lastTargetPlayer = null
       return res.send('L')
     } 
     if (targetPlayer.on =='r') {
       console.log('normal R')
+      lastTargetPlayer = null
       return res.send('R')
     }
     
