@@ -229,10 +229,10 @@ function actionToTake(me, players, res) {
   } else {
     hitCount = 0
     
-    const targetPlayer = players[0]
-    // .sort((a,b) => {
-    //   return a.noOfStep - b.noOfStep
-    // })[0]
+    const targetPlayer = players
+    .sort((a,b) => {
+      return a.noOfStep - b.noOfStep
+    })[0]
     console.log('targetPlayer', targetPlayer)
     if (!targetPlayer){
       console.log('normal R')
