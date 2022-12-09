@@ -214,7 +214,7 @@ function actionToTake(me, players, res) {
       console.log("hit and move", finalDirection.toUpperCase())
       return res.send(finalDirection.toUpperCase())
     }
-    console.log('wong finalDirection', finalDirection);
+    console.log('wong finalDirection', finalDirection, maxDistinctPlayer);
     // let i = 0
     // if (players[i].position === 0) {
     //   if (players[i+1]?.on == 'l' && players[i+1].distinct > 2) {
