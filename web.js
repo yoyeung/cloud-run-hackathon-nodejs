@@ -164,7 +164,7 @@ function isBorder(me, res) {
 }
 
 function actionToTake(me, players, res) {
-  const moves = ['R', 'F','F', 'L','F', 'R','F', 'F','F', 'L'];
+  const moves = ['R', 'F','F', 'L','F', 'R','L', 'F','F', 'L'];
   if (me.wasHit) {
     hitCount++
     if (isBorder(me, res)) {
@@ -214,6 +214,7 @@ function actionToTake(me, players, res) {
       console.log("hit and move", finalDirection.toUpperCase())
       return res.send(finalDirection.toUpperCase())
     }
+    console.log('wong finalDirection', finalDirection);
     // let i = 0
     // if (players[i].position === 0) {
     //   if (players[i+1]?.on == 'l' && players[i+1].distinct > 2) {
